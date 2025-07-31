@@ -17,8 +17,8 @@ This is the backend server for the **REIA (Real Estate Investment Analyzer)** pr
 
 ## 🚀 Live Deployment
 
-- Backend: [Render](https://render.com/)
-- Frontend: [Vercel](https://vercel.com/)
+- Backend: [Render](https://reia-backend.onrender.com)
+- Frontend: [Vercel](https://reia-frontend.vercel.app/)
 
 ---
 
@@ -112,7 +112,7 @@ However:
 You can run it manually like this:
 
 ```bash
-python3 price_scraper.py "Whitefield Bangalore"
+python3 price_scraper.py
 ```
 
 ---
