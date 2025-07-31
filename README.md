@@ -22,6 +22,13 @@ This is the backend server for the **REIA (Real Estate Investment Analyzer)** pr
 
 ---
 
+## Related repositories
+
+- **Scraper**: [reia-scraper](https://github.com/prateekbalawat/reia-scraper)
+- **Backend**: [reia-frontend](https://github.com/prateekbalawat/reia-frontend)
+
+---
+
 ## 📦 Installation & Setup (Local)
 
 ### 1. Clone the repository
