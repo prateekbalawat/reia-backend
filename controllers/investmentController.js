@@ -4,6 +4,19 @@ const fetchPriceFromDatabase = require("../utils/fetchFromDatabase");
 const { runCompetitiveAnalysis } = require("../services/analysisService"); // or analysisService
 const { validationResult } = require("express-validator");
 
+const roiByArea = {
+  Whitefield: 0.06,
+  "JP Nagar": 0.045,
+  "BTM Layout": 0.05,
+  "MG Road": 0.04,
+  Indiranagar: 0.047,
+  "Electronic City": 0.055,
+  Devanahalli: 0.065,
+  "KR Puram": 0.058,
+  Vidyaranyapura: 0.043,
+  "HSR Layout": 0.05,
+};
+
 const cache = new NodeCache({ stdTTL: 3600 }); // Cache expires in 1 hour (3600 sec)
 
 const submitInvestment = async (req, res) => {
@@ -46,7 +59,9 @@ const submitInvestment = async (req, res) => {
       investment_amount / current_price_per_sqft
     );
 
-    const roi_projection = calculateROI(investment_amount, 0.05);
+    const annual_rate =
+      roiByArea[location.replace(/\s*Bangalore$/i, "").trim()] || 0.05; // fallback to 5%
+    const roi_projection = calculateROI(investment_amount, annual_rate);
     const expected_5_year_gain =
       roi_projection[roi_projection.length - 1].estimated_value -
       investment_amount;
@@ -63,7 +78,7 @@ const submitInvestment = async (req, res) => {
       nearby_properties,
       roi_projection,
       expected_5_year_gain: Math.round(expected_5_year_gain),
-      cagr: `${cagr.toFixed(2)}%`,
+      cagr: `${(annual_rate * 100).toFixed(2)}%`,
     };
 
     // ✅ 3. Save to cache
